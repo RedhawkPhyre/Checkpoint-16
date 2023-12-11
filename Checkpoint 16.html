@@ -2108,8 +2108,7 @@ Time: $hours:$minutes$meridiem\
 (if: $minutes is 0)[(set: $minutes to &#39;00&#39;)]
 (if: $nums contains $minutes)[(set: $minutes to &#39;0&#39;+(text:$minutes))]
 (if:$time is &gt;=780 and $hours is &lt;1440)[(set: $meridiem = &#39;PM&#39;)]
-(if:$meridiem is &quot;PM&quot;)[(set: $hours = $hours - 12)]
-(set:$bargedMiraQuestion = true)}\
+(if:$meridiem is &quot;PM&quot;)[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 &lt;hr&gt;
@@ -2144,6 +2143,17 @@ Time: $hours:$minutes$meridiem\
 &lt;span class=&#39;office-worker&#39;&gt;&quot;Ofcourse I have, who do you take me for?&quot;&lt;/span&gt;
 (align:&quot;=&gt;&lt;=&quot;)[---]
 (align:&quot;=&gt;&lt;=&quot;)[[&gt;&gt;&gt;|officeDiamond]]
+]
+
+(click:?note1)[(replace:?askMira)[](replace:?askDiamond)[](replace:?note2)[]\
+//The office worker examines the note.// 
+(align:&quot;=&gt;&lt;=&quot;)[---]
+(align:&quot;=&gt;&lt;=&quot;)[[&gt;&gt;&gt;|glassNote1]]
+]
+(click:?note2)[(replace:?askMira)[](replace:?askDiamond)[](replace:?note1)[]\
+//The office worker examines the note.// 
+(align:&quot;=&gt;&lt;=&quot;)[---]
+(align:&quot;=&gt;&lt;=&quot;)[[&gt;&gt;&gt;|glassNote2]]
 ]]
 (else:)[
 (if:$finishedLunch is false)[(if:$officeRemainingQuestions &lt;= 0)[

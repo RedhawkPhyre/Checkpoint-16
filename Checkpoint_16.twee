@@ -1640,8 +1640,7 @@ Time: $hours:$minutes$meridiem\
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
 (if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
-(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
-(set:$bargedMiraQuestion = true)}\
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
@@ -1676,6 +1675,17 @@ Time: $hours:$minutes$meridiem\
 <span class='office-worker'>"Ofcourse I have, who do you take me for?"</span>
 (align:"=><=")[---]
 (align:"=><=")[[>>>|officeDiamond]]
+]
+
+(click:?note1)[(replace:?askMira)[](replace:?askDiamond)[](replace:?note2)[]\
+//The office worker examines the note.// 
+(align:"=><=")[---]
+(align:"=><=")[[>>>|glassNote1]]
+]
+(click:?note2)[(replace:?askMira)[](replace:?askDiamond)[](replace:?note1)[]\
+//The office worker examines the note.// 
+(align:"=><=")[---]
+(align:"=><=")[[>>>|glassNote2]]
 ]]
 (else:)[
 (if:$finishedLunch is false)[(if:$officeRemainingQuestions <= 0)[
