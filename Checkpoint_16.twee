@@ -12,94 +12,25 @@ Checkpoint 16
 }
 
 
-:: \ Navigate Lounge & Bar {"position":"2425,600","size":"100,100"}
-{(set: $location = 'Lounge & Bar')
-(set: $time = $time + 10)
+:: Approach Figure {"position":"2125,1175","size":"100,100"}
+{(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
-Location: $location
-Time: $hours:$minutes$meridiem\
-<hr>
-//As you navigate the lounge and bar, your attention is drawn to the bots. It appears that their job is just to maintain the space and return into the kitchen area to recharge. They don’t seem strong or intelligent enough to fight a person, but a similar robot could plausibly clean-up a crime scene. 
-
-Despite your thorough investigation, the person sitting at the bar is unfazed. They never looked up, never even casting their gaze your way. //
-(align:"=><=")[---]
-(align:"=><=")[[Approach Figure]]
-
-
-:: Approach Figure {"position":"2550,600","size":"100,100"}
-{(set: $location = 'Lounge & Bar')
-(set: $time = $time + 20)
-(set: $hours = (floor:($time / 60)))
-(set:$minutes = $time % 60)
-(if: $minutes is 0)[(set: $minutes to '00')]
-(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
 //As you approach the individual, they remain unbothered, calmly sipping a purple coloured drink from a whiskey glass.
 
-You decide to find out more about this individual. After all, they could be linked to Mira's disappearance. //
-
-[<span class='main-char'>"Who are you?"</span>]<Question1|
-
-(click:?Question1)[(replace:?Question2)[](replace:?Question3)[](replace:?Question4)[]\
-<span class='crime-mem'>"I’m nobody important, just another guest at Checkpoint 16, like you.
-You shouldn’t ask too many questions."</span>
-(set:$tickedOff = 1)\
-]
-
-[<span class='main-char'>"What are you doing here?"</span>]<Question2|
-
-(click:?Question2)[(replace:?Question1)[](replace:?Question3)[](replace:?Question4)[]\
-<span class='crime-mem'>"Enjoying a fine drink. And what about you?"</span>
-
-[<span class='main-char'>"I'm looking for a missing person. You hear anything about it?"</span>]<Response1|
-
-(click:?Response1)[(replace:?Response2)[]\
-<span class='crime-mem'>"I see. I wish you good luck with that. Missing people in this day and age means they could be anywhere really."
-"You seem like the smart type, maybe you're on the right track."</span>]
-
-[<span class='main-char'>"None of your business."</span>]<Response2|
-
-(click:?Response2)[(replace:?Response1)[]\
-<span class='crime-mem'>"I see... Not very courteous, are you?"</span>\
-(set:$tickedOff = $tickedOff + 1)]
-]
-
-[<span class='main-char'>"Have you heard of a person named Mira before?"</span>]<Question3|
-
-(click:?Question3)[(replace:?Question1)[](replace:?Question2)[](replace:?Question4)[]\
-<span class='crime-mem'>"Hmm… Not that I recall. "</span>
-]
-
-[<span class='main-char'>"Did you hear about the Cypher Diamond?"</span>]<Question4|
-
-(click:?Question4)[(replace:?Question1)[](replace:?Question2)[](replace:?Question3)[]\
-<span class='crime-mem'>"Most definitely. How could the Barge bear to admit such a blunder? The fact that the Barge didn’t outright say that they lost it and instead said that it was stolen means that they’re telling the truth. 
-The whole organization is probably looking for the thief. It’s only a matter of time before the Cypher Diamond is reclaimed, I’m sure."</span>\
-]
-
-(if: $note1 is true)[\
-[<span class='main-char'>"Do you recognize this note?"</span>]<Question5|
-
-(click:?Question5)[(replace:?Question1)[](replace:?Question2)[](replace:?Question3)[](replace:?Question4)[]\
-<span class='crime-mem'>"I didn’t write this, that’s for sure. Although I wouldn’t be surprised if I’ve written something similar before.
-Work demands I get others to respond in a timely manner. I’m not choosy with words."</span>\
-
-<span class='main-char'>"Others? Like who?"</span>
-
-<span class='crime-mem'>"Like tonight's entertainment."</span>\
-]]
+There's something odd about this individual. A level of unbothered that only someone who has never lost a fight could have. They could be linked to Mira's disappearance. //
 (align:"=><=")[---]
-(align:"=><=")[[>>>->cime-mem continue]]
+(align:"=><=")[[Greet Crime Member]]
 
 
-:: Approach Singer {"position":"3325,1000","size":"100,100"}
+:: Approach Singer {"position":"3350,1725","size":"100,100"}
 {(set: $location = 'Buffet')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -131,7 +62,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[>>>|Singer Continue]]
 
 
-:: Approach the stressed individua {"position":"2550,800","size":"100,100"}
+:: Approach the stressed individual {"position":"2575,1525","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -147,7 +78,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[Knock again, but louder]]
 
 
-:: Ask About Work Life {"position":"1325,700","size":"100,100"}
+:: Ask About Work Life {"position":"1350,1425","size":"100,100"}
 {(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -213,239 +144,139 @@ Anyways, the job pays well and I have time for other work so I’m not complaini
 ]
 
 
-:: Ask More Questions {"position":"2700,1000","size":"100,100"}
-{(set: $location = 'Lobby')
-(set: $time = $time + 20)
+:: Ask More Questions {"position":"2575,2225","size":"100,100"}
+{(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
-(if:$gossipConvo is false)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//]\
-(else-if:$skillConvo is false)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//
-]\
-(else-if:$note1 is true and $bellhopNote1 is false)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//
-]\
-(else-if:$note2 is true and $bellhopNote2 is false)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//
-]\
-
-(if:$gossipConvo is true)[(if:$skillConvo is true)[(if:$note1 is false)[(if:$note2 is false)[\
-//Although you have time left, you are unsure what to do next as your stomach growls.
-You hear LIA chime in. Her tone indicates that she’s irritated.//
-
-<span class='lia'>“Try and maximize your time! You should engage in more conversation next time around. You’re a detective, for goodness sake!”</span>
-
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]\
-
-(if:$gossipConvo is true)[(if:$skillConvo is true)[(if:$note1 is true)[(if:$bellhopNote1 is true)[(if:$note2 is false)[\
-//Although you have time left, you are unsure what to do next as your stomach growls.
-You hear LIA chime in. Her tone indicates that she’s irritated.//
-
-<span class='lia'>“Try and maximize your time! You should engage in more conversation next time around. You’re a detective, for goodness sake!”</span>
-
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]](else:)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//]\
-
-(if:$gossipConvo is true)[(if:$skillConvo is true)[(if:$note2 is true)[(if:$bellhopNote2 is true)[(if:$note1 is false)[
-//Although you have time left, you are unsure what to do next as your stomach growls.
-You hear LIA chime in. Her tone indicates that she’s irritated.//
-
-<span class='lia'>“Try and maximize your time! You should engage in more conversation next time around. You’re a detective, for goodness sake!”</span>
-
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]](else:)[
-//You still have a few more minutes before lunch starts. Better make the most of your time..//]\
-
-(if:$gossipConvo is true)[(if:$skillConvo is true)[(if:$note1 is true)[(if:$bellhopNote1 is true)[(if:$note2 is true)[(if:$bellhopNote2 is true)[
-//Although you have time left, you are unsure what to do next as your stomach growls.
-You hear LIA chime in. Her tone indicates that she’s irritated.//
-
-<span class='lia'>“Try and maximize your time! You should engage in more conversation next time around. You’re a detective, for goodness sake!”</span>
-
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\]]]]]]\
-(else:)[\
-//You still have a few more minutes before lunch starts. Better make the most of your time..//]\
-
+[(if:$bellhopRemainingQuestions > 0)[\
+//Perhaps a different conversation route could be of use//
 <!-- Gossip Convo-->
-(if:$gossipConvo is false)[
-[<span class="main-char">"Can you tell me about any of the guests?"</span>]<gossipConvo|
-(click:?gossipConvo)[(set:$gossipConvo = true)(replace:?skillConvo)[](replace:?note1)[](replace:?note2)[]
-<span class='bellhop'>"Man, you know I’m not supposed to talk much about them. I’ll let you know, though– it’s the offseason, so other than you, there’s only been three other guests today. At least, that’s how many I saw during my rounds this morning."</span>\
-(if:$bellhopHelp is true)[<span class='bellhop'>"..."
-"Now that I think of it, I was kind of worried about that one guy at the Meetings Floor. He seemed worked up about something, and when I looked at his screen, he was totally gawking at the Singer online."</span>\
+(if:$gossipConvo is false)[\
+[//Inquire about the guests at the hotel.//]<gossipConvo|
+(click:?gossipConvo)[(set:$gossipConvo = true)(replace:?skillConvo)[](replace:?note1)[](replace:?note2)[]\
+<span class="main-char">"So, how well do you know the people who come and go from Check Point 16?"</span>
 
-[<span class="main-char">"Who is the Singer?"</span>]<Singer|\
-(click:?Singer)[\
-<span class='bellhop'>"Oh, she’s this famous songstress that we bring in for entertainment at the Lounge and Bar. She’s usually there all night working away. A real beauty for the eyes and ears."</span> \
+//This seem to have caught the Bellhop's attention//
 
-[<span class="main-char">"What are you up to now?"</span>]<Inquire|
-(click:?Inquire)[(replace:?askMira)[]
-<span class='bellhop'>"Finishing up a report of my interaction with you since management is super adamant that I do this after I attend to every guest."</span>\
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]\
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//\
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]\
-
-[<span class="main-char">"What about a guest named Mira?"</span>]<askMira|
-(click:?askMira)[(replace:?Inquire)[]
-<span class='bellhop'>"Can’t share guest information, you know. But I’m pretty sure none of the guests here right now are named Mira."</span>\
-
-(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]
-]](else:)[
-// It doesn't seem like they have much to say... maybe a more direct question will help.//\
-
-[<span class="main-char">"What are you up to now?"</span>]<Inquire|
-(click:?Inquire)[(replace:?askMira)[]\
-<span class='bellhop'>"Finishing up a report of my interaction with you since management is super adamant that I do this after I attend to every guest."</span>\
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]\
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]\
-(align:"=><=")[[Lunch Time]]\
-]]]\
-
-[<span class="main-char">"What about a guest named Mira?"</span>]<askMira|\
-(click:?askMira)[(replace:?Inquire)[]\
-<span class='bellhop'>"Can’t share guest information, you know. But I’m pretty sure none of the guests here right now are named Mira."</span>\
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//\
-(align:"=><=")[---]\
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
-//Seems like you've run out of time to ask more questions.//\
-(align:"=><=")[---]\
-(align:"=><=")[[Lunch Time]]\
-]]]]]
-]\
+<span class='bellhop'>"..."
+"Depends on who's asking. What do you want to know?"</span>
+(align:"=><=")[[[>>>|GossipConvo]]]]]\
 
 <!-- Skill Convo-->
-(if:$skillConvo is false)[
-[<span class="main-char">"Have you heard of the Cypher Diamond case?"</span>]<skillConvo|
-(click:?skillConvo)[(set:$skillConvo = true)(replace:?gossipConvo)[](replace:?note1)[](replace:?note2)[]
-<span class='bellhop'>"Yeah, the Barge totally flopped with their security. It must’ve been an inside job… I wonder where that blue beauty is now. If I had a gem like that, I wouldn’t need to work this job anymore.... If I'm being honest, I'm pretty overqualified for this job."</span>
+(if:$skillConvo is false)[\
+[//See if the Bellhop knows anything about the Cypher Diamond Case.//]<skillConvo| 
+(click:?skillConvo)[(set:$skillConvo = true)(replace:?gossipConvo)[](replace:?note1)[](replace:?note2)[]\
+<span class="main-char">"You ever heard of the Cypher Diamond Case?"</span>
 
-(if:$bellhopSkill is true)[
-[<span class="main-char">"Oh? Is this about the particular skill set you mentioned before?"</span>]<askSkill|
-(click:?askSkill)[(replace:?askStudy)[]
-<span class='bellhop'>"Oh, yeah. I learned how to program and operate server systems back when I was a student. I’m pretty handy with machines and hardware too. The hotel doesn’t need to find an IT person, and I get a little extra added to my bonus."</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]
-
-[<span class="main-char">"What do you mean?"</span>]<askStudy|
-(click:?askStudy)[(replace:?askSkill)[]
-<span class='bellhop'>"Not to boast, but I picked up neurological sciences. I didn’t want to subscribe to research or the super traditional route, though, so I never formally took courses. I’d say I’m on par if not better than their finer academics that you see on the news. I’m totally less stuck-up, too."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
-
-(else:)[[<span class="main-char">"What do you mean?"</span>]<askStudy|
-(click:?askStudy)[
-<span class='bellhop'>"Not to boast, but I picked up neurological sciences. I didn’t want to subscribe to research or the super traditional route, though, so I never formally took courses. I’d say I’m on par if not better than their finer academics that you see on the news. I’m totally less stuck-up, too."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]]
-]\
+<span class='bellhop'>"Oh for sure, the whole thing was broadcasted across several solar systems."</span>
+(align:"=><=")[[[>>>|SkillConvo]]]]\
+]
 
 <!-- Note1 Convo-->
-(if:$bellhopNote1 is false)[
-(if:$note1 is true)[
-[//Show the note you found in the bed.//]<note1|
-(click:?note1)[(set:$bellhopNote1 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note2)[]
-//The bellhop watches you curiously as you pull out the note you had found//
+(if:$bellhopeNote1 is false)[\
+(if:$note1 is true)[\
+[//Show the note you found in the bed.//]<note1|]
+(click:?note1)[(set:$bellhopNote1 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note2)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
 
-<span class="main-char">"Do you recognize this note?"</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-<span class='bellhop'>"Huh… No, I don’t. Not open to speculating who wrote this, as you know, since it compromises security..."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
-]\
+<span class='bellhop'>"Sure, pass it over."</span>
+(align:"=><=")[[[>>>|bellhopNote1]]]]]\
 
 <!-- Note2  Convo-->
-(if:$bellhopNote2 is false)[
-(if:$note2 is true)[
-[//Show the note you found in the closet.//]<note2|
-(click:?note2)[(set:$bellhopNote2 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note1)[]
-//The bellhop watches you curiously as you pull out the note you had found//
+(if:$bellhopNote2 is false)[\
+(if:$note2 is true)[\
+[//Show the note you found in the closet.//]<note2|]]
+(click:?note2)[(set:$bellhopNote2 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note1)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
 
-<span class="main-char">"Do you recognize this note?"</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-<span class='bellhop'>"Woah, this is super ominous. I don’t recognize this, I definitely wouldn’t write something so menacing."</span>
+<span class='bellhop'>"Sure, pass it over."</span>
+(align:"=><=")[[[>>>|bellhopNote2]]]]]\
+(else:)[
+(if:$finishedLunch is false)[(if:$bellhopRemainingQuestions <= 0)[
+//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of.
 
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+
+//Is it just you or does LIA sound a little bit annoyed...//
 (align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[[Lunch Time]]]](else:)[(if:$time < 1080)[
 (align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
+{(if:$lobbyVisited is false)[(align:"=><=")[[Go to Lobby]]]
+(if:$loungeVisited is false)[(align:"=><=")[[Go to Lounge & Bar]]]
+(if:$meetingsVisited is false)[(align:"=><=")[[Go to Meetings Floor]]]
+(if:$buffetVisited is false)[(align:"=><=")[[Go to Buffet]]]}]
+(else:)[//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of and it sure doesn't seem like this shady individual likes you.
+
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+//Is it just you or does LIA sound a little bit annoyed...//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]]
+]]
 ]
 
 
-:: Bellhop #1 {"position":"775,875","size":"100,100"}
+:: Bad Terms {"position":"2775,750","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions + 2)}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+
+//The individual notices you taking a little too long examining the card and scoffs.//
+
+<span class='crime-mem'>"Look here... friend. I'm here as a little business vacation and to sponser the Singer. I'm not looking for trouble. That card right there, you'd be wise to know my lil... group, is more than what they seem. Just don't mess with me, and I'll leave you alone."</span>
+<span class='crime-mem'>"Don't believe me? The Singer will be here in the evening chirping away. A true songbird, that one. You'll see why someone like me would sponder them. "</span>
+
+(if: $finishedLunch is false)[//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of and it sure doesn't seem like this shady individual likes you.
+
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+
+//Is it just you or does LIA sound a little bit annoyed...//
+(align:"=><=")[---]
+(align:"=><=")[[Lunch Time]]]
+(else:)[ (if:$time < 1080)[
+//Doesn't seem like you're very welcomed here at the moment.//
+(align:"=><=")[---]
+{(if:$lobbyVisited is false)[(align:"=><=")[[Go to Lobby]]]
+(if:$meetingsVisited is false)[(align:"=><=")[[Go to Meetings Floor]]]
+(if:$buffetVisited is false)[(align:"=><=")[[Go to Buffet]]]}]
+(else:)[//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of and it sure doesn't seem like this shady individual likes you.
+
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+//Is it just you or does LIA sound a little bit annoyed...//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]]
+]
+
+
+:: Bellhop #1 {"position":"800,1600","size":"100,100"}
 Location: $location\
 <hr>
 <span class="bellhop">\
@@ -457,7 +288,7 @@ Anywho, pass me your belongings and I'll take you to your room."</span>
 (align:"=><=")[[[Follow Bellhop->Bellhop Choice 1]]]
 
 
-:: Bellhop Choice 1 {"position":"825,725","size":"100,100"}
+:: Bellhop Choice 1 {"position":"850,1450","size":"100,100"}
 (set: $location to "Hallways")\
 Location: $location\
 <hr>\
@@ -479,185 +310,71 @@ Besides, you bought the cheapest room here, which isn’t a family or honeymoon 
 (align:"=><=")[[[Cut things short->Time Tutorial]]]
 
 
-:: Continue Conversation 2 {"position":"2550,1000","size":"100,100"}
-(set: $location = 'Lobby')\
-(set: $time = $time + 20)\
-(set: $hours = (floor:($time / 60)))\
-(set:$minutes = $time % 60)\
-(if: $minutes is 0)[(set: $minutes to '00')]\
-(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]\
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]\
+:: Continue Conversation 2 {"position":"2125,2125","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
 //The conversation seems to have started well enough. Why not try and get more out of the bellhop.//
+
 <!-- Gossip Convo-->
-[<span class="main-char">"Can you tell me about any of the guests?"</span>]<gossipConvo|
+[//Inquire about the guests at the hotel.//]<gossipConvo|
 (click:?gossipConvo)[(set:$gossipConvo = true)(replace:?skillConvo)[](replace:?note1)[](replace:?note2)[]
-<span class='bellhop'>"Man, you know I’m not supposed to talk much about them. I’ll let you know, though– it’s the offseason, so other than you, there’s only been three other guests today. At least, that’s how many I saw during my rounds this morning."</span>
-(if:$bellhopHelp is true)[<span class='bellhop'>"..."
-"Now that I think of it, I was kind of worried about that one guy at the Meetings Floor. He seemed worked up about something, and when I looked at his screen, he was totally gawking at the Singer online."</span>
+<span class="main-char">"So, how well do you know the people who come and go from Check Point 16?"</span>
 
-[<span class="main-char">"Who is the Singer?"</span>]<Singer|
-(click:?Singer)[
-<span class='bellhop'>"Oh, she’s this famous songstress that we bring in for entertainment at the Lounge and Bar. She’s usually there all night working away. A real beauty for the eyes and ears."</span> 
+//This seem to have caught the Bellhop's attention//
 
-[<span class="main-char">"What are you up to now?"</span>]<Inquire|
-(click:?Inquire)[(replace:?askMira)[]
-<span class='bellhop'>"Finishing up a report of my interaction with you since management is super adamant that I do this after I attend to every guest."</span>
+<span class='bellhop'>"..."
+"Depends on who's asking. What do you want to know?"</span>
+(align:"=><=")[[[>>>|GossipConvo]]]]\
 
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]]]]
-
-[<span class="main-char">"What about a guest named Mira?"</span>]<askMira|
-(click:?askMira)[(replace:?Inquire)[]
-<span class='bellhop'>"Can’t share guest information, you know. But I’m pretty sure none of the guests here right now are named Mira."</span>
-
-(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]
-](else:)[
-// It doesn't seem like they have much to say... maybe a more direct question will help.//
-
-[<span class="main-char">"What are you up to now?"</span>]<Inquire|
-(click:?Inquire)[(replace:?askMira)[]
-<span class='bellhop'>"Finishing up a report of my interaction with you since management is super adamant that I do this after I attend to every guest."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]
-]
-[<span class="main-char">"What about a guest named Mira?"</span>]<askMira|
-(click:?askMira)[(replace:?Inquire)[]
-<span class='bellhop'>"Can’t share guest information, you know. But I’m pretty sure none of the guests here right now are named Mira."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
-]\
 <!-- Skill Convo-->
-[<span class="main-char">"Have you heard of the Cypher Diamond case?"</span>]<skillConvo|
+[//See if the Bellhop knows anything about the Cypher Diamond Case.//]<skillConvo| 
 (click:?skillConvo)[(set:$skillConvo = true)(replace:?gossipConvo)[](replace:?note1)[](replace:?note2)[]
-<span class='bellhop'>"Yeah, the Barge totally flopped with their security. It must’ve been an inside job… I wonder where that blue beauty is now. If I had a gem like that, I wouldn’t need to work this job anymore.... If I'm being honest, I'm pretty overqualified for this job."</span>
+<span class="main-char">"You ever heard of the Cypher Diamond Case?"</span>
 
-(if:$bellhopSkill is true)[
-[<span class="main-char">"Oh? Is this about the particular skill set you mentioned before?"</span>]<askSkill|
-(click:?askSkill)[(replace:?askStudy)[]
-<span class='bellhop'>"Oh, yeah. I learned how to program and operate server systems back when I was a student. I’m pretty handy with machines and hardware too. The hotel doesn’t need to find an IT person, and I get a little extra added to my bonus."</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]
-
-[<span class="main-char">"What do you mean?"</span>]<askStudy|
-(click:?askStudy)[(replace:?askSkill)[]
-<span class='bellhop'>"Not to boast, but I picked up neurological sciences. I didn’t want to subscribe to research or the super traditional route, though, so I never formally took courses. I’d say I’m on par if not better than their finer academics that you see on the news. I’m totally less stuck-up, too."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
-
-(else:)[[<span class="main-char">"What do you mean?"</span>]<askStudy|
-(click:?askStudy)[
-<span class='bellhop'>"Not to boast, but I picked up neurological sciences. I didn’t want to subscribe to research or the super traditional route, though, so I never formally took courses. I’d say I’m on par if not better than their finer academics that you see on the news. I’m totally less stuck-up, too."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-](else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]
-]\
+<span class='bellhop'>"Oh for sure, the whole thing was broadcasted across several solar systems."</span>
+(align:"=><=")[[[>>>|SkillConvo]]]]\
 
 <!-- Note1 Convo-->
 (if:$note1 is true)[
-[//Show the note you found in the bed.//]<note1|
-(click:?note1)[(set:$bellhopNote1 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note2)[]
-//The bellhop watches you curiously as you pull out the note you had found//
+[//Show the note you found in the bed.//]<note1|]
+(click:?note1)[(set:$bellhopNote1 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note2)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
 
-<span class="main-char">"Do you recognize this note?"</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-<span class='bellhop'>"Huh… No, I don’t. Not open to speculating who wrote this, as you know, since it compromises security..."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-]
-(else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]\
-]]]]\
+<span class='bellhop'>"Sure, pass it over."</span>
+(align:"=><=")[[[>>>|bellhopNote1]]]]\
 
 <!-- Note2  Convo-->
 (if:$note2 is true)[
-[//Show the note you found in the closet.//]<note2|
-(click:?note2)[(set:$bellhopNote2 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note1)[]
-//The bellhop watches you curiously as you pull out the note you had found//
+[//Show the note you found in the closet.//]<note2|]
+(click:?note2)[(set:$bellhopNote2 = true)(replace:?gossipConvo)[](replace:?skillConvo)[](replace:?note1)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
 
-<span class="main-char">"Do you recognize this note?"</span>
+//The Bellhop raises an eyebrow inquisitively.//
 
-<span class='bellhop'>"Woah, this is super ominous. I don’t recognize this, I definitely wouldn’t write something so menacing."</span>
-
-[(if:$time < 780)[//Perhaps a different route of conversation can give you more information.//
-(align:"=><=")[---]
-(align:"=><=")[[Ask More Questions]]\
-]
-(else:)[
-<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
-//Seems like you've run out of time to ask more questions.//
-(align:"=><=")[---]
-(align:"=><=")[[Lunch Time]]]\
-]]]
+<span class='bellhop'>"Sure, pass it over."</span>
+(align:"=><=")[[[>>>|bellhopNote2]]]]
 
 
-:: Cover_Page {"position":"700,1000","size":"100,100"}
+:: Cover_Page {"position":"725,1725","size":"100,100"}
 #(text-colour:cyan)+(text-style:"expand")+(align:"=><=")+(box:"=XXXXXXXX=")[Checkpoint 16]\
 
 (align:"=><=")+(box:"=XXXXXXXX=")[Created by the A team]\
 (align:"=><=")+(box:"=XXXXXXXX=")[[START|Introduction]]
 
 
-:: Cut Things Short {"position":"1175,575","size":"100,100"}
+:: Cut Things Short {"position":"1200,1275","size":"100,100"}
 {(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -679,7 +396,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")+(box:"===XXXX===")[[>>>|We're here]]
 
 
-:: Dinner {"position":"3300,600","size":"100,100"}
+:: Dinner {"position":"3525,1075","size":"100,100"}
 {(set: $location = 'Buffet')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -726,7 +443,55 @@ As you ponder LIA’s demand and this odd scenario, you decide that there is con
 (align:"=><=")[[Go to Lounge & Bar|Lounge & Bar 3rd Part]]
 
 
-:: End {"position":"3100,1200","size":"100,100"}
+:: Dinner Time {"position":"3325,1075","size":"100,100"}
+{(set: $location = 'Buffet')
+(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+//You’ve spent many hours investigating and are needing another moment to circle back on what you’ve learned. You decide to grab some dinner at the Buffet again to gain some energy.
+
+When you arrive at the Buffet, it is 8:05PM. You decide to try a vintage meal: steak and potatoes. At Checkpoint 16, they ramp up the dish into wagyu sirloin and truffle mashed potatoes. As you gorge yourself on the most decadent dinner you’ve ever had, you observe the Buffet once more. 
+
+You see://
+
+<!--if spoken to singer-->
+(if:$spoken_singer is true)[//The woman you encountered in the Buffet earlier today arrives at 8:35, grabs a bottle of sparkling water and leaves. She briefly smiles at you on her way out.//]
+
+(else:)[//The individual with pink hair you saw during lunch arrives at 8:35, grabs a bottle of sparkling water, and leaves.//]
+
+<!--if spoken to criminal-->
+(if:$spoken_ciminal is true)[//The suspicious person from the Lounge & Bar sits down at 8:15. They call over a bot to change the ambient scene to a dreamy sunset on the shore of a sandy, platinum beach. They enjoy a dish of Chateaubriand paired with a vintage red wine, offering you a glass which you politely decline.//]
+
+(else:)[//The individual in a suit you saw during lunch sits down at 8:15. They call over a bot to change the ambient scene to a dreamy sunset on the shore of a sandy, platinum beach. They order a dish of Chateaubriand paired with a vintage red wine.//]
+
+<!--if spoken to office worker-->
+(if:$spoken_office_worker is true)[//The worker you met at the Meetings Floor arrives in a hurry at 8:40. They inhale a ham and cheese croissant then grab two sparkling waters. They glance your way, still chewing the croissant, and give you a quick bow on their way out at 8:50.//]
+
+(else:)[//The worker you met at the Meetings Floor arrives in a hurry at 8:40. They inhale a ham and cheese croissant then grab two sparkling waters. They sprint out of the buffet, still chewing the croissant, at 8:50.//]
+
+<!--spoken to bellhop (true always)-->
+//The Bellhop comes in at 8:10. They order what seems to be an employee meal of pesto alfredo and coffee, eating with one hand and scrolling through a personal device on the other. They leave around 8:45 after snatching a canned energy drink on their way out.//
+
+//You finish your deluxe dinner at 9:00, fully satiated and rehydrated. LIA speaks up as you consider where to go next.
+
+<span class='lia'>“Detective, you need to go to the Lounge & Bar. Now. An event is occurring at that location and insightful information can be gleaned from the attendees. I promise”</span>
+
+You find LIA’s tone odd and unlike that of the other bots you’ve encountered. You ask LIA why she is so insistent but she does not respond. It seems that LIA’s voice function has been shut off temporarily. 
+
+As you ponder LIA’s demand and this odd scenario, you decide that there is considerable merit in listening to LIA. You leave the Buffet with newfound determination.//
+
+(align:"=><=")[---]
+(align:"=><=")[[Go to Lounge & Bar|Lounge & Bar 3rd Part]]
+
+
+:: End {"position":"2975,2250","size":"100,100"}
 (align:"=><=")[*Congrats you've made it to the end of the Demo!
 
 Let's see how well you did in your first interactions with the bellhop!
@@ -746,7 +511,7 @@ Next time you see them, you can ask them what their secret skill is.*]
 ]
 
 
-:: Enter Room {"position":"1700,575","size":"100,100"}
+:: Enter Room {"position":"1725,1300","size":"100,100"}
 {(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -772,14 +537,15 @@ The room looks simple as it is, but perhaps it’s worth investigating. But with
 (set:$note2 = false)}
 
 
-:: Finish Eating {"position":"2900,1175","size":"100,100"}
+:: Finish Eating {"position":"3175,2025","size":"100,100"}
 {(set: $location = 'Buffet')
-(set: $time = $time + 20)
+(set: $time = 780)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
@@ -789,18 +555,18 @@ As you wonder where to go next, LIA’s voice is heard.//
 
 (align:"=><=")[<img src="https://static.wixstatic.com/media/b55364_9e6a16d5396c4daf86dc6ff725af4ab7~mv2.png">]
 
-<span class="lia">"Detective, where are we off to next? I would strongly suggest you investigate a different area in order to get more information."</span>
+<span class="lia">"Dearest Guest, where would you like to go next? Perhaps somewhere you haven't visited yet?"</span>
 
 //You decide to go to a different area next.//
 
 (align:"=><=")[---]
-(align:"=><=")[[Go to Lobby]]
-(align:"=><=")[[Go to Lounge & Bar]]
-(align:"=><=")[[Go to Meetings Floor]]
-(align:"=><=")[[Go to Buffet]]
+{(if:$lobbyVisited is false)[(align:"=><=")[[Go to Lobby]]]
+(if:$loungeVisited is false)[(align:"=><=")[[Go to Lounge & Bar]]]
+(if:$meetingsVisited is false)[(align:"=><=")[[Go to Meetings Floor]]]
+(if:$buffetVisited is false)[(align:"=><=")[[Go to Buffet]]]}
 
 
-:: Go to Buffet {"position":"3200,1000","size":"100,100"}
+:: Go to Buffet {"position":"3225,1725","size":"100,100"}
 {(set: $location = 'Buffet')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -822,14 +588,16 @@ Time: $hours:$minutes$meridiem\
 (set:$singer_trust to 0)
 
 
-:: Go to Lobby {"position":"2300,1000","size":"100,100"}
+:: Go to Lobby {"position":"2125,1825","size":"100,100"}
 (set: $location = 'Lobby')\
-(set: $time = $time + 20)\
-(set: $hours = (floor:($time / 60)))\
-(set:$minutes = $time % 60)\
-(if: $minutes is 0)[(set: $minutes to '00')]\
-(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]\
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]\
+{(set: $time = $time + 20)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+(set:$lobbyVisited = true)\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
@@ -844,25 +612,29 @@ Seems like they have time to spare for a quick conversation.//
 (align:"=><=")[[Talk to the Bellhop]]
 
 
-:: Go to Lounge & Bar {"position":"2300,600","size":"100,100"}
+:: Go to Lounge & Bar {"position":"2125,1325","size":"100,100"}
 {(set: $location = 'Lounge & Bar')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$loungeVisited = true)}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
-//You arrive at the Lounge and Bar. Even though the time would mean it’s midday, the space is unusually dark, barely lit by orange orbs suspended above each table and in the air. Nevertheless, you can tell that the space it’s very well-kept as a few cleaning bots diligently polish glasses and wipe down tables. The air is filled with the scent of drinks rather than cleaning detergents, adding to the mysterious yet inviting atmosphere.
+//You arrive at the Lounge and Bar. Even though the time would mean it’s midday, the space is unusually dark, barely lit by orange orbs suspended above each table and in the air. Nevertheless, you can tell that the space it’s very well-kept as a few cleaning bots diligently polish glasses and wipe down tables. 
 
-You see a questionable individual sitting at the bar. They’re dressed in a suit and have a slicked back hairstyle.//
+A thought occurs to you: a similar robot could plausibly clean-up a crime scene. However, you decide it's best to focus on the mysterious figure seated before you.
+
+Dressed in a suit with a slicked back hairstyle, the figure seems unfazed by your scrutinizing gaze.//
 (align:"=><=")[---]
-(align:"=><=")[[>>> | Navigate Lounge & Bar]]
+(align:"=><=")[[Approach Figure]]
 
 
-:: Go to Meetings Floor {"position":"2300,800","size":"100,100"}
+:: Go to Meetings Floor {"position":"2325,1525","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -878,7 +650,170 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[>>>|Navigate Mettings Floor]]
 
 
-:: Gossip {"position":"1325,850","size":"100,100"}
+:: Good Terms {"position":"2250,950","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions + 2)}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+
+//You casually pull up a chair and wave for the bartender to bring a glass of water.//
+
+<span class="main-char">"You seem quite knowledgeable..."</span>
+
+<!-- Mira Convo -->\
+(if:$crimememberMira is false)[\
+[<span class="main-char">"Have you heard of someone named Mira before?"</span>]<askMira| ]\
+
+<!-- Diamond Convo -->\
+(if:$crimememberDiamond is false)[\
+[<span class="main-char">"Have you heard of the Cypher Diamond Case?"</span>]<askDiamond| ]\
+
+<!-- Note1 Convo-->\
+(if:$crimememberNote1 is false)[\
+(if:$note1 is true)[\
+[//Show the note you found in the bed.//]<note1|]]\
+
+<!-- Note2  Convo-->\
+(if:$crimememberNote2 is false)[\
+(if:$note2 is true)[\
+[//Show the note you found in the closet.//]<note2|]]\
+
+(click:?askMira)[(replace:?note1)[](replace:?askDiamond)[](replace:?note2)[]\
+//The individual swirls their glass contemplatively.// 
+
+<span class='crime-mem'>"Mira... hmmm, let me think"</span>
+(align:"=><=")[---]\
+(align:"=><=")[[[>>>|askMira]]]
+]\
+
+(click:?askDiamond)[(replace:?note1)[](replace:?askMira)[](replace:?note2)[]\
+//The individual frowns at the mention of the Cypher Diamond Case.//
+
+<span class='crime-mem'>"Why yes, I gotta say, my... company was quite interested in that diamond. It's too bad someone else got to it first."</span>
+
+<span class="main-char">"You believe that someone stole it?"</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|askDiamond]]]
+]
+
+(click:?note1)[(set:$crimemberNote1 = true)(replace:?askMira)[](replace:?askDiamond)[](replace:?note2)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
+
+//The individual raises an eyebrow inquisitively.//
+
+<span class='crime-mem'>"Let's take a look."</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|crimememberNote1]]]]\
+
+(click:?note2)[(set:$crimememberNote2 = true)(replace:?askMira)[](replace:?askDiamond)[](replace:?note1)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
+
+//The individual raises an eyebrow inquisitively.//
+
+<span class='crime-mem'>"Pass it over."</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|crimememberNote2]]]]
+
+
+:: Good Terms Continued {"position":"2775,1050","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+
+(if:$crimememberRemainingQuestions > 0)[
+<!-- Mira Convo -->\
+(if:$crimememberMira is false)[\
+[<span class="main-char">"Have you heard of someone named Mira before?"</span>]<askMira| ]\
+
+<!-- Diamond Convo -->\
+(if:$crimememberDiamond is false)[\
+[<span class="main-char">"Have you heard of the Cypher Diamond Case?"</span>]<askDiamond| ]\
+
+<!-- Note1 Convo-->\
+(if:$crimememberNote1 is false)[\
+(if:$note1 is true)[\
+[//Show the note you found in the bed.//]<note1|]]\
+
+<!-- Note2  Convo-->\
+(if:$crimememberNote2 is false)[\
+(if:$note2 is true)[\
+[//Show the note you found in the closet.//]<note2|]]\
+
+(click:?askMira)[(replace:?note1)[](replace:?askDiamond)[](replace:?note2)[]\
+//The individual swirls their glass contemplatively.// 
+
+<span class='crime-mem'>"Mira... hmmm, let me think"</span>
+(align:"=><=")[---]\
+(align:"=><=")[[[>>>|askMira]]]
+]\
+
+(click:?askDiamond)[(replace:?note1)[](replace:?askMira)[](replace:?note2)[]\
+//The individual frowns at the mention of the Cypher Diamond Case.//
+
+<span class='crime-mem'>"Why yes, I gotta say, my... company was quite interested in that diamond. It's too bad someone else got to it first."</span>
+
+<span class="main-char">"You believe that someone stole it?"</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|askDiamond]]]
+]
+
+(click:?note1)[(set:$crimemberNote1 = true)(replace:?askMira)[](replace:?askDiamond)[](replace:?note2)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
+
+//The individual raises an eyebrow inquisitively.//
+
+<span class='crime-mem'>"Let's take a look."</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|crimememberNote1]]]]\
+
+(click:?note2)[(set:$crimememberNote2 = true)(replace:?askMira)[](replace:?askDiamond)[](replace:?note1)[]\
+<span class="main-char">"I found something earlier today. Mind taking a look at it?"</span>
+
+//The individual raises an eyebrow inquisitively.//
+
+<span class='crime-mem'>"Pass it over."</span>
+(align:"=><=")[---]
+(align:"=><=")[[[>>>|crimememberNote2]]]]
+](else-if: $finishedLunch is false)[//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of.
+
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+
+//Is it just you or does LIA sound a little bit annoyed...//
+(align:"=><=")[---]
+(align:"=><=")[[Lunch Time]]]
+(else:)[(if:$time < 1080)[
+(align:"=><=")[---]
+{(if:$lobbyVisited is false)[(align:"=><=")[[Go to Lobby]]]
+(if:$meetingsVisited is false)[(align:"=><=")[[Go to Meetings Floor]]]
+(if:$buffetVisited is false)[(align:"=><=")[[Go to Buffet]]]}]
+(else:)[//Although you have time left, you are unsure what to do next. You don't have any more leads to go off of and it sure doesn't seem like this shady individual likes you.
+
+Suddenly, LIA chimes in. //
+
+<span class="lia">“It seems like you're looking for something or someone. Try and maximize your time and engage in more conversation next time around. You might get more information."</span>
+//Is it just you or does LIA sound a little bit annoyed...//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]]
+]
+
+
+:: Gossip {"position":"1350,1575","size":"100,100"}
 {(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -933,7 +868,180 @@ Besides, if I report you then that’s less work for me."</span>
 (align:"=><=")+(box:"===XXXX===")[[>>>->We're here]]]
 
 
-:: Intro 2 {"position":"950,1000","size":"100,100"}
+:: GossipConvo {"position":"2250,2025","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions - 1)\
+<span class='bellhop'>"Technically I’m not supposed to talk much about them. I’ll let you know, though– it’s the offseason, so other than you, there’s only been three other guests today. At least, that’s how many I saw during my rounds this morning."</span>
+
+(if:$bellhopHelp is true)[<span class='bellhop'>"..."
+"Now that I think of it, I was kind of worried about that one guy at the Meetings Floor. He seemed worked up about something, and when I looked at his screen, it was covered with images of the Singer. Seemed obsessed."</span>]\
+
+[<span class="main-char">"Who is the Singer?"</span>]<Singer|
+(click:?Singer)[(replace:?Inquire)[](replace:?askMira)[]
+<span class='bellhop'>"Oh, she’s this famous songstress that we bring in for entertainment at the Lounge and Bar. She’s usually there all night working away. A real beauty for the eyes and ears."</span> 
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]
+
+[<span class="main-char">"What are you up to now?"</span>]<Inquire|
+(click:?Inquire)[(replace:?askMira)[](replace:?Singer)[]
+<span class='bellhop'>"Finishing up a report of my interaction with you since management is super adamant that I do this after I attend to every guest."</span>
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]
+
+
+
+
+:: GossipConvo2 {"position":"2400,2025","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+
+[<span class="main-char">"What about a guest named Mira?"</span>]<askMira|
+(click:?askMira)[(replace:?askEveryone)[]
+<span class='bellhop'>"Can’t share guest information, you know. But I’m pretty sure none of the guests here right now are named Mira."</span>
+
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]
+
+[<span class="main-char">"You said there were three guests. Who are they?"</span>]<askEveryone|
+(click:?askEveryone)[(replace:?askMira)[]
+<span class='bellhop'>"I can't give you personal details, but one of them holes themselves up in the meeting room. Another frequents the Lounge & Bar. The third is our very own Singer, she travels from check point to check point giving performances as she goes."</span>
+
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]
+
+
+:: Greet Crime Member {"position":"2125,1050","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+//You approach the figure warily despite how relaxed the atmosphere seems.//
+
+<!-- MeetCrimeMember Convo-->
+[<span class="main-char">"Who are you?"</span>]<Inquire|
+(click:?Inquire)[
+// The figure looks up at you, a bemused expression on their face.//
+<span class='crime-mem'>"I’m nobody important, just another guest at Checkpoint 16, like you.
+You shouldn’t ask too many questions."</span>
+
+[<span class="main-char">"My apologies, I'm just trying to get to know my fellow residents."</span>]<Apologize|
+
+[<span class="main-char">"I have my reasons to. What are you doing here?"</span>]<Suspect|
+]
+(click:?Apologize)[(replace:?Suspect)[](set:$goodterms = true)
+//The individual waves your apology off, although they seem to have accepted it as they return their gaze to their surroundings.
+
+They seem to have deemed you unthreatening. Perhaps another try at a conversation might be worth it.//
+(align:"=><=")[---]
+(align:"=><=")[[>>>|Good Terms]]
+]\
+(click:?Suspect)[(replace:?Apologize)[](set:$badterms = true)
+//The individual gives you a long hard stare before speaking.//
+
+<span class='crime-mem'>"I suppose I have my reasons too. But here, take my business card, incase you have any... unfinished business you want me to take care of." </span>
+
+//You take the card cautiously and examine it. It feels sleek, like velvet. Something only the richest of the rich could afford for business cards. Odd symbols are engraved, not a company that sounds familiar. This might not be someone you want to mess with. But could they be a suspect?//
+(align:"=><=")[---]
+(align:"=><=")[[>>>|Bad Terms]]
+]
+(set:$crimememberMira = false)\
+(set:$crimememberDiamond = false)\
+(set:$crimememberNote1 = false)\
+(set:$crimememberNote2 = false)
+
+
+:: Intro 2 {"position":"975,1725","size":"100,100"}
 That’s where we came in.
 
 Mira and I. We started the agency, built it from the ground up with just our heads on our shoulders and a (I say bargained, Mira prefers to say “stolen”) key to the cheapest permanent office we could find.
@@ -947,7 +1055,7 @@ That’s bad.
 (align:"=><=")[[[>>>->Intro 3]]]
 
 
-:: Intro 3 {"position":"1100,1000","size":"100,100"}
+:: Intro 3 {"position":"1125,1725","size":"100,100"}
 I looked into the logs. The only thing of note was a non-automated message from Checkpoint 16.
 
 Checkpoint 16 is one of many rest-stops strewn across the galaxies where all sorts of people can find respite. 
@@ -957,7 +1065,7 @@ Though, this one is definitely out of my comfort zone. An illustrious, opulent s
 (align:"=><=")[[[>>>->Intro 4]]]
 
 
-:: Intro 4 {"position":"1250,1000","size":"100,100"}
+:: Intro 4 {"position":"1275,1725","size":"100,100"}
 (track: 'chillMusic', 'fadeout', 30)\
 I already tried contacting every organization I could- no dice, since neither I nor the agency are “of great repute” (or rather, we’re totally unknown) to all Checkpoint-neutral associations. 
 
@@ -969,7 +1077,7 @@ I’ll have to do what I do best: uncover the truth using everything at my dispo
 (align:"=><=")[[[Enter Lobby->Welcome]]]
 
 
-:: Introduction {"position":"825,1000","size":"100,100"}
+:: Introduction {"position":"850,1725","size":"100,100"}
 {(track: 'chillMusic', 'loop', true)
 (track: 'chillMusic', 'play')
 (track: 'searchMusic', 'volume', 0.3)}\
@@ -981,7 +1089,7 @@ Nevertheless, here are some jobs that robots and AI can’t replace, can’t rep
 (align:"=><=")[[[>>>->Intro 2]]]
 
 
-:: Investigate Bed {"position":"1900,800","size":"100,100"}
+:: Investigate Bed {"position":"1925,1525","size":"100,100"}
 {(set: $time = $time + 5)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -992,6 +1100,9 @@ Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>\
 (set:$note1 = true)\
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions + 1)\
+(set:$crimememberRemainingQuestions = $crimememberRemainingQuestions + 1)\
+(set:$singerRemainingQuestions = $singerRemainingQuestions + 1)\
 //You examine the covers and bed frame and see a (text-colour:cyan)[paper note] tucked between the mattress and bedframe: //
 "Meet behind stage in the Lounge & Bar after performance."
 
@@ -1010,7 +1121,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[Leave Room]]}
 
 
-:: Investigate Bedside table {"position":"1900,1200","size":"100,100"}
+:: Investigate Bedside table {"position":"1925,1925","size":"100,100"}
 (set: $time = $time + 5)\
 (set: $hours = (floor:($time / 60)))\
 (set:$minutes = $time % 60)\
@@ -1034,7 +1145,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[Leave Room]]}
 
 
-:: Investigate Closet {"position":"1900,900","size":"100,100"}
+:: Investigate Closet {"position":"1925,1625","size":"100,100"}
 {(set: $time = $time + 5)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -1044,7 +1155,10 @@ Time: $hours:$minutes$meridiem\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>\
-(set:$note2 = true)
+(set:$note2 = true)\
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions + 1)\
+(set:$crimememberRemainingQuestions = $crimememberRemainingQuestions + 1)\
+(set:$singerRemainingQuestions = $singerRemainingQuestions + 1)\
 <span class='main-char'>"What the-!"</span>
 
 //You open the closet and notice a coat that looks all too similar to the one that your partner always wears. You immediately yank it out and start examining it closely. You find a (text-colour:cyan)[letter] in the right pocket://
@@ -1067,7 +1181,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[Leave Room]]}
 
 
-:: Investigate Mirror {"position":"1900,1100","size":"100,100"}
+:: Investigate Mirror {"position":"1925,1825","size":"100,100"}
 {(set: $time = $time + 5)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -1089,7 +1203,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[Leave Room]]}
 
 
-:: Investigate Room {"position":"1700,1000","size":"100,100"}
+:: Investigate Room {"position":"1725,1725","size":"100,100"}
 {(set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
@@ -1121,10 +1235,14 @@ You could potentially investigate everything... where should you start?//
 (set:$bed = false)
 (set:$mirror = false)
 (set:$closet = false)
-(set:$washroom = false)}
+(set:$washroom = false)
+(set:$bellhopeRemainingQuestions = 0)
+(set:$crimememberRemainingQuestions = 0)
+(set:$singerRemainingQuestions = 0)}
 
 
-:: Investigate Washroom {"position":"1900,1000","size":"100,100"}
+
+:: Investigate Washroom {"position":"1925,1725","size":"100,100"}
 (set: $time = $time + 5)\
 (set: $hours = (floor:($time / 60)))\
 (set:$minutes = $time % 60)\
@@ -1150,7 +1268,7 @@ It was the hairbrush you had given Mira on her last birthday. //
 (align:"=><=")[[Leave Room]]}
 
 
-:: Knock again, but louder {"position":"2675,800","size":"100,100"}
+:: Knock again, but louder {"position":"2700,1525","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -1167,13 +1285,14 @@ The glass gradients into black, displaying a message.//
 (align:"=><=")[[Look carefully at the message]]
 
 
-:: Leave Room {"position":"2125,800","size":"100,100"}
-{(set: $time = $time + 5)
+:: Leave Room {"position":"2125,1525","size":"100,100"}
+{(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
@@ -1197,8 +1316,15 @@ And, if you require anything from the bellhop, you can find them in the (text-co
 (align:"=><=")[[Go to Meetings Floor]]
 (align:"=><=")[[Go to Lounge & Bar]]
 
+(set:$lobbyVisited = false)\
+(set:$meetingsVisited = false)\
+(set:$loungeVisited = false)\
+(set:$badterms = false)\
+(set:$goodterms = false)\
+(set:$finishedLunch = false)
 
-:: Leave the Meeting Floor {"position":"2900,975","size":"100,100"}
+
+:: Leave the Meeting Floor {"position":"3100,1625","size":"100,100"}
 {(set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
@@ -1217,7 +1343,7 @@ And, if you require anything from the bellhop, you can find them in the (text-co
 (align:"=><=")[[Go to Buffet]]
 
 
-:: Look carefully at the message {"position":"2800,800","size":"100,100"}
+:: Look carefully at the message {"position":"2825,1525","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -1233,36 +1359,39 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[>>>|Other Rooms]]
 
 
-:: Lounge & Bar 3rd Part {"position":"3300,725","size":"100,100"}
+:: Lounge & Bar 3rd Part {"position":"3425,975","size":"100,100"}
 
 
 
-:: Lunch Time {"position":"2600,1200","size":"100,100"}
+:: Lunch Time {"position":"2925,2025","size":"100,100"}
 {(set: $location = 'Buffet')
-(set: $time = $time + 20)
+(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
-//You decide that it’d be best to replenish your energy. You head off to the buffet to enjoy a luxurious lunch of lobster rolls and champagne. While there, you note that there are 3 other people at the Buffet:
+//With a limited lunch time, you decide that it’d be best to replenish your energy. You head off to the buffet to enjoy a luxurious lunch of lobster rolls and champagne. While there, you note that there are 3 other people at the Buffet:
 
-An individual with long pink hair dressed in a white bathrobe happily enjoying pancakes.
+An (text-colour:magenta)[individual] with long pink hair dressed in a white bathrobe happily enjoying pancakes.
 
-An individual in a white dress shirt and slacks, typing on a personal device and eating some kind of mixed salad at the same time.
+An (text-colour:yellow)[individual] in a white dress shirt and slacks, typing on a personal device and eating some kind of mixed salad at the same time.
 
-An individual in a suit cutting into a Cordon Bleu and nonchalantly sipping on a glass of white wine.
+An (text-colour:blue)[individual] in a suit cutting into a Cordon Bleu and nonchalantly sipping on a glass of white wine.
 
-The person in the dress shirt and the person in the suit finish eating. They exit the buffet one after the other, exchanging words on their way out.//
+The person in the dress shirt and the person in the suit finish eating. They exit the buffet one after the other, exchanging indistinguishable words on their way out.//
 
 (align:"=><=")[---]
 (align:"=><=")[[Finish Eating]]
+(set:$buffetVisited = false)\
+(set:$finishedLunch = true)
 
 
-:: Navigate Mettings Floor {"position":"2425,800","size":"100,100"}
+:: Navigate Mettings Floor {"position":"2450,1525","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
@@ -1275,10 +1404,10 @@ Time: $hours:$minutes$meridiem\
 <hr>
 //In one of the cubicles, you see a willowy person typing away on a personal device. They look troubled, brows furrowed, wearing your typical business suit. There is a navy blazer and a black messenger bag slumped over on a chair behind them.//
 (align:"=><=")[---]
-(align:"=><=")[[Approach the stressed individua]]
+(align:"=><=")[[Approach the stressed individual]]
 
 
-:: Other Rooms {"position":"2925,800","size":"100,100"}
+:: Other Rooms {"position":"2975,1500","size":"100,100"}
 {(set: $location = 'Meetings Floor')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -1304,7 +1433,7 @@ Therefore, you decide to ...//
 (set:$office_worker_trust to 0)
 
 
-:: Singer Continue {"position":"3450,1000","size":"100,100"}
+:: Singer Continue {"position":"3475,1725","size":"100,100"}
 {(set: $location = 'Buffet')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -1338,7 +1467,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[>>>|Singer Continue 2]]
 
 
-:: Singer Continue 2 {"position":"3575,1000","size":"100,100"}
+:: Singer Continue 2 {"position":"3600,1725","size":"100,100"}
 {(set: $location = 'Buffet')
 (set: $time = $time + 20)
 (set: $hours = (floor:($time / 60)))
@@ -1413,7 +1542,7 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")[[>>>|Singer Continue 3]]
 
 
-:: Singer Continue 3 {"position":"3700,1000","size":"100,100"}
+:: Singer Continue 3 {"position":"3725,1725","size":"100,100"}
 (set:$card to true)
 
 {(set: $location = 'Buffet')
@@ -1509,7 +1638,69 @@ Time: $hours:$minutes$meridiem\
 ]
 
 
-:: Start Bellhop Convo {"position":"1175,750","size":"100,100"}
+:: SkillConvo {"position":"2250,2150","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions - 1)\
+<span class='bellhop'>"Yeah, the Barge totally flopped with their security. It must’ve been an inside job… I wonder where that blue beauty is now. If I had a gem like that, I wouldn’t need to work this job anymore.... If I'm being honest, I'm pretty overqualified for this job."</span>
+
+(if:$bellhopSkill is true)[
+[<span class="main-char">"Oh? Is this about the particular skill set you mentioned before?"</span>]<askSkill|
+(click:?askSkill)[(replace:?askStudy)[]
+<span class='bellhop'>"Oh, yeah. I learned how to program and operate server systems back when I was a student. I’m pretty handy with machines and hardware too. The hotel doesn’t need to find an IT person, and I get a little extra added to my bonus."</span>
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]]
+
+[<span class="main-char">"What do you mean?"</span>]<askStudy|
+(click:?askStudy)[(replace:?askSkill)[]
+<span class='bellhop'>"Not to boast, but I picked up neurological sciences. I didn’t want to subscribe to research or the super traditional route, though, so I never formally took courses. I’d say I’m on par if not better than their finer academics that you see on the news. I’m totally less stuck-up, too."</span>
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]]
+
+
+
+:: Start Bellhop Convo {"position":"1200,1450","size":"100,100"}
 {(set: $bellhop = 1)
 (set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
@@ -1539,18 +1730,19 @@ Time: $hours:$minutes$meridiem\
 (align:"=><=")+(box:"===XXXX===")[[Gossip|Gossip]]
 
 
-:: Talk to the Bellhop {"position":"2425,1000","size":"100,100"}
-{(set: $location = 'Lobby')
-(set: $time = $time + 10)
+:: Talk to the Bellhop {"position":"2125,1975","size":"100,100"}
+{(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
 (set:$gossipConvo = false)
 (set:$skillConvo = false)
 (set:$bellhopNote1 = false)
-(set:$bellhopNote2 = false)}\
+(set:$bellhopNote2 = false)
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions + 2)}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
@@ -1569,13 +1761,13 @@ Time: $hours:$minutes$meridiem\
 [<span class="main-char">"I didn’t. Could have used your help to unpack."</span>]<Response2|
 (click:?Response2)[(replace:?Response1)[]
 <span class='bellhop'>"Sorry, I didn't pick up on that. Didn’t seem like you had much on you. 
-Please don’t include that in your review, it would tank my bonus this month."</span>
+Please don’t include that in your review, it would tank my bonus this month and with what I make... I kind of need it."</span>
 
 (align:"=><=")[---]
 (align:"=><=")[[>>>|Continue Conversation 2]]]
 
 
-:: Time Tutorial {"position":"1050,725","size":"100,100"}
+:: Time Tutorial {"position":"1075,1425","size":"100,100"}
 {(set:$time to 570)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -1603,7 +1795,7 @@ Lia At Your Service\
 (set:$bellhopSkill = false)}
 
 
-:: Try opening the door and walk inside {"position":"3100,700","size":"100,100"}
+:: Try opening the door and walk inside {"position":"3100,1500","size":"100,100"}
 {(set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
@@ -1736,7 +1928,7 @@ It would be useful inside of machines. Specifically in high-level robot creation
 ]]
 
 
-:: Try talking to them through the glass {"position":"3100,600","size":"100,100"}
+:: Try talking to them through the glass {"position":"3100,1375","size":"100,100"}
 {(set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
@@ -1756,7 +1948,7 @@ It would be useful inside of machines. Specifically in high-level robot creation
 ]
 
 
-:: We're here {"position":"1700,450","size":"100,100"}
+:: We're here {"position":"1725,1175","size":"100,100"}
 {(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
@@ -1777,7 +1969,7 @@ In the corner is a closet with some sort of fancy, abstract painting. Leaned up 
 (align:"=><=")+(box:"===XXXX===")[[>>>|Enter Room]]
 
 
-:: Welcome {"position":"1400,1000","size":"100,100"}
+:: Welcome {"position":"1425,1725","size":"100,100"}
 {(track: 'chillMusic', 'stop')
 (track: 'searchMusic', 'fadein', 2)
 (track: 'searchMusic', 'loop', true)
@@ -1798,51 +1990,249 @@ Please confirm your reservation using LIA now.
 (align:"=><=")+(b4r:"solid")+(b4r-size:1)+(b4r-colour:white)[[<span style="color: white;">Enter Name|lia]]
 
 
-:: cime-mem continue {"position":"2700,600","size":"100,100"}
-{(set: $location = 'Lounge & Bar')
-(set: $time = $time)
+:: askDiamond {"position":"2425,1100","size":"100,100"}
+{(set: $time = $time + 10)
 (set: $hours = (floor:($time / 60)))
 (set:$minutes = $time % 60)
 (if: $minutes is 0)[(set: $minutes to '00')]
 (if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
-(if:$hours is >=12 and $hours is <24)[(set: $meridiem = 'PM')]}\
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberDiamond = true)
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions - 1)}\
 Location: $location
 Time: $hours:$minutes$meridiem\
 <hr>
-//They reach into their suit jacket and take out a paper card, holding it out to you. Super retro, you think, as you wonder why they’re so traditional and formal.
-You take the card cautiously and examine it. It feels sleek, like velvet.//
 
-<span class='crime-mem'>"The Singer will be here in the evening chirping away. A true songbird, that one. I’m sure you’ll enjoy your time if you come take a gander."</span>\
-(set: $card = true)
+<span class='crime-mem'>"Most definitely. How could the Barge bear to admit such a blunder? The fact that the Barge didn’t outright say that they lost it and instead said that it was stolen means that they’re telling the truth."</span>
 
-[<span class='main-char'>"I’ll come take a look."</span>]<Response1|
+<span class='crime-mem'>"The whole organization is probably looking for the thief. It’s only a matter of time before the Cypher Diamond is reclaimed, I’m sure."</span>
 
-(click:?Response1)[(replace:?Response2)[]\
-//The individual smiles.//
-
-<span class='crime-mem'>"Much thanks, on her behalf. I’ll let her know you’ll be on your way."</span>]
-
-[<span class='main-char'>"Sounds trivial to me."</span>]<Response2|
-
-(click:?Response2)[(replace:?Response1)[]\
-//The individual clicks their teeth and slowly smirks.//
-(if: $tickedOff is > 1)[\
-(if: $tickedOff is >= 3)[//The indivisual takes a long sip of their drink and slams the glass on the table//]
-
-<span class='crime-mem'>"You sure know how to grind someone’s gears, buddy."</span>](set:$tickedOff = $tickedOff + 1)]
-
-(if: $note2 is true)[[<span class='main-char'>"Do you recognize this note?"</span>]<Question6|]
-
-(click:?Question6)[<span class='crime-mem'>"Hmm… this appears to be a threat. I myself wouldn’t stoop so low. Such vulgar and desperate tone is beyond me."</span>]
-
-[<span class='main-char'>"I don’t have anything to say or ask you."</span>]<Question7|
-
-(click:?Question7)[<span class='crime-mem'>"Alright. I’ll be seeing you, inspector."</span>
+(if:$finishedLunch is false)
+[(if:$time < 720)[//You still have time before lunch.//
 (align:"=><=")[---]
-(align:"=><=")[[>>>->placeHolder]]]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Lunch Time]]
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
 
 
-:: hal.tracks {"position":"525,1000","size":"100,100"}
+:: askMira {"position":"2425,975","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberMira = true)
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions - 1)}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+
+<span class='crime-mem'>"I can't say I know every resident here at Checkpoint 16 but... hmm... I can almost swear I've heard that name being spoken somewhere..."</span>
+
+//The individual shrugs.//
+
+<span class='crime-mem'>"Sorry I can't be of more help. I would like to say I heard that name some time within the last week but I can't say for sure. Sometimes the drinks get to me if you know what I mean."</span>
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]\
+](else:)[\
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
+
+
+:: bellhopNote1 {"position":"2250,2275","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions - 1)\
+//The Bellhop watches you curiously as you pull out the note you had found//
+
+<span class="main-char">"Do you recognize this note?"</span>
+
+//The Bellhop looks at the note, a confused expression on their face//
+
+<span class='bellhop'>"...No, I don’t. Not open to speculating who wrote this, as you know, since it compromises security..."</span>
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
+
+
+:: bellhopNote2 {"position":"2250,2400","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+(set:$bellhopRemainingQuestions = $bellhopRemainingQuestions - 1)\
+//The bellhop watches you curiously as you pull out the note you had found//
+
+<span class="main-char">"Do you recognize this note?"</span>
+
+//The Bellhop looks at the note, an eyebrow raised as they read through the content.//
+
+<span class='bellhop'>"Woah, this is super ominous. I don’t recognize this, I definitely wouldn’t write something so menacing if that's what you're insinuating."</span>
+
+(if:$finishedLunch is false)\
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]\
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>\
+//Seems like you've run out of time to ask more questions.//\
+(align:"=><=")[---]\
+(align:"=><=")[[Lunch Time]]\
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//\
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions]]\
+](else:)[\
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
+
+
+:: crimememberNote1 {"position":"2425,850","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberNote1 = true)
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions - 1)}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+//The figure looks at the note before ever so slightly rolling their eyes.//
+
+<span class='crime-mem'>"My guess is whoever wrote this either wanted a little romantic rendez-vous... or perhaps it's something a little more sinister."</span>
+
+//The individual waves their hand airily.//
+
+<span class='crime-mem'>"Either way, you'll find their location is or was over there."</span>
+
+//They gesture to the stage where curtains are currently drawn.//
+
+<span class='crime-mem'>"Come by later tonight if you want. That stage will be open then, and that's when folks can sneak in the back. If you know what I mean."</span>
+
+(if:$finishedLunch is false)
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='bellhop'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Lunch Time]]
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
+
+
+:: crimememberNote2 {"position":"2425,1225","size":"100,100"}
+{(set: $time = $time + 10)
+(set: $hours = (floor:($time / 60)))
+(set:$minutes = $time % 60)
+(if: $minutes is 0)[(set: $minutes to '00')]
+(if: $nums contains $minutes)[(set: $minutes to '0'+(text:$minutes))]
+(if:$time is >=780 and $hours is <1440)[(set: $meridiem = 'PM')]
+(if:$meridiem is "PM")[(set: $hours = $hours - 12)]
+(set:$crimememberNote2 = true)
+(set:$crimememberRemainingQuestions =$crimememberRemainingQuestions - 1)}\
+Location: $location
+Time: $hours:$minutes$meridiem\
+<hr>
+//The figure looks at the note silently before chuckling.//
+
+<span class='crime-mem'>"Well that's one heck of a note, is what I'll say. I didn't write this, that's for sure. My people like to be a little more... discrete and our little threats are a little more effective."</span>
+
+<span class='crime-mem'>"If this was for a friend of yours, I'd count them as gone for good or in deep deep trouble."</span>
+
+(if:$finishedLunch is false)
+[(if:$time < 720)[//You still have time before lunch.//
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Lunch Time]]
+]](else:)[(if:$time < 1080)[//You still have time before dinner.//
+(align:"=><=")[---]
+(align:"=><=")[[Ask More Questions|Good Terms Continued]]
+](else:)[
+<span class='crime-mem'>"Ah, would you look at the time. Better hurry off for lunch."</span>
+//Seems like you've run out of time to ask more questions.//
+(align:"=><=")[---]
+(align:"=><=")[[Dinner Time]]
+]]
+
+
+:: hal.tracks {"position":"550,1725","size":"100,100"}
 searchMusic: https://static.wixstatic.com/mp3/b55364_431d7b692aa04e6b9ff2a1efbbda28a3.mp3
 
 interrogateMusic: https://static.wixstatic.com/mp3/b55364_f8f6a3059d0b43e29ced06f112b1f05b.mp3
@@ -1852,7 +2242,7 @@ jazzMusic: https://static.wixstatic.com/mp3/b55364_b61ad56b25c0426cb63ef7d61faf5
 chillMusic: https://static.wixstatic.com/mp3/b55364_00e417f25db0410bb38ea721899129a3.mp3
 
 
-:: lia {"position":"1125,875","size":"100,100"}
+:: lia {"position":"1150,1600","size":"100,100"}
 (set:$playerName to (prompt:"Enter your name: ", "Name"))\
 Location: $location\
 <hr>
@@ -1869,10 +2259,6 @@ Initializing LIA…
 (align:"=><=")[[[Talk to figure->Bellhop #1]]]
 
 
-:: placeHolder {"position":"2825,600","size":"100,100"}
-
-
-
 :: StoryScript [script]
 /**
  * Harlowe Audio Library (HAL), by Chapel, v2.3.0
@@ -1884,6 +2270,10 @@ Initializing LIA…
 
 :: StoryStylesheet [stylesheet]
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Exo:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Exo:wght@100&family=Fasthand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
 
 .main-char{
   font-family: Exo, serif;
@@ -1898,15 +2288,18 @@ Initializing LIA…
 }
 
 .crime-mem{
-  font-family:
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 30px;
 }
 
 .office-worker{
-  font-family:
+  font-family:Fasthand;
+  font-size: 30px;
 }
 
 .singer{
-  font-family:
+  font-family: 'Allura', cursive;
+  font-size: 35px;
 }
   
 tw-story{
